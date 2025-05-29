@@ -6,66 +6,127 @@
   <link rel="icon" type="image/png" href="images/image_balla.jpg">  
   <style>  
     body {  
-      font-family: sans-serif;  
+      font-family: 'Segoe UI', sans-serif;  
       text-align: center;  
-      background: #f4f4f4;  
+      background: linear-gradient(to right, #f9f9f9, #dbeafe);  
       padding: 20px;  
+      color: #1e293b;  
     }  
     .card {  
       background: white;  
-      padding: 20px;  
-      border-radius: 10px;  
-      box-shadow: 0 0 10px gray;  
+      padding: 25px;  
+      border-radius: 15px;  
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);  
       display: inline-block;  
-      max-width: 400px;  
+      max-width: 420px;  
       margin: auto;  
     }  
     .card img.photo {  
-      width: 120px;  
-      height: 120px;  
+      width: 140px;  
+      height: 140px;  
       border-radius: 50%;  
       object-fit: cover;  
-      margin-bottom: 15px;  
+      margin-bottom: 20px;  
+      border: 3px solid #3b82f6;  
+      cursor: pointer;  
+      transition: transform 0.2s ease;  
     }  
+    .card img.photo:hover {
+      transform: scale(1.05);
+    }
     .card h1 {  
       margin-bottom: 10px;  
+      font-size: 26px;  
     }  
     .card p {  
-      margin: 5px;  
+      margin: 8px 0;  
+      font-size: 18px;  
     }  
     .btn {  
-      background: #27ae60;  
+      background: #3b82f6;  
       color: white;  
-      padding: 10px 20px;  
+      padding: 12px 22px;  
       text-decoration: none;  
-      border-radius: 5px;  
+      border-radius: 8px;  
       display: inline-block;  
-      margin-top: 10px;  
+      margin-top: 12px;  
+      transition: background 0.3s ease;  
+    }  
+    .btn:hover {  
+      background: #2563eb;  
     }  
     .btn.secondary {  
-      background: #2980b9;  
+      background: #10b981;  
+    }  
+    .btn.secondary:hover {  
+      background: #059669;  
     }  
     .social-links a {  
       display: inline-block;  
       margin: 10px;  
     }  
     .social-links img {  
-      height: 40px;  
-      width: 40px;  
+      height: 44px;  
+      width: 44px;  
       border-radius: 5px;  
-      transition: transform 0.2s;  
+      transition: transform 0.2s ease;  
     }  
     .social-links img:hover {  
       transform: scale(1.1);  
     }  
+    select {  
+      font-size: 16px;  
+      padding: 6px;  
+      border-radius: 6px;  
+      margin-top: 5px;  
+    }  
+    #description-specialite {  
+      margin-top: 12px;  
+      font-style: italic;  
+      font-size: 17px;  
+      color: #374151;  
+    }  
+
+    /* Style pour la modale */  
+    .modal {  
+      display: none;  
+      position: fixed;  
+      z-index: 999;  
+      left: 0;  
+      top: 0;  
+      width: 100%;  
+      height: 100%;  
+      background-color: rgba(0,0,0,0.8);  
+    }  
+    .modal-content {  
+      margin: 5% auto;  
+      display: block;  
+      max-width: 90%;  
+      max-height: 90vh;  
+      border-radius: 12px;  
+      box-shadow: 0 0 30px rgba(255,255,255,0.3);  
+    }  
+    .close {  
+      position: absolute;  
+      top: 20px;  
+      right: 30px;  
+      color: #fff;  
+      font-size: 40px;  
+      font-weight: bold;  
+      cursor: pointer;  
+    }  
     @media (max-width: 600px) {  
       .card {  
-        width: 90%;  
-        font-size: 16px;  
+        width: 95%;  
+        font-size: 18px;  
+      }  
+      .card img.photo {  
+        width: 160px;  
+        height: 160px;  
       }  
       .social-links img {  
-        width: 30px;  
-        height: 30px;  
+        width: 36px;  
+        height: 36px;  
       }  
     }  
   </style>  
@@ -73,14 +134,31 @@
 <body>  
 
   <div class="card">  
-    <img src="images/image_balla.jpg" alt="Photo de Maballa Sall" class="photo">  
-  
+    <img id="photo-profil" src="images/image_balla.jpg" alt="Photo de Maballa Sall" class="photo" onclick="ouvrirImage(this.src)">  
     <h1>Maballa Sall</h1>  
     <p>Graphiste</p>  
+
+    <label for="specialite">Nos Produits :</label><br>  
+    <select id="specialite" onchange="afficherDescription()">  
+      <option value="">-- Sélectionner --</option>  
+      <option value="flocage">Flocage textile</option>  
+      <option value="logo">Création de logo</option>  
+      <option value="tableau">Tableau artistique</option>  
+      <option value="affiche">Affiche publicitaire</option>  
+      <option value="brochure">Brochure professionnelle</option>  
+      <option value="depliant">Dépliant publicitaire</option>  
+      <option value="carte_visite">Carte de visite</option>  
+      <option value="carte_membre">Carte de membre</option>  
+      <option value="flyers">Flyers promotionnels</option>  
+      <option value="invitation">Carte d'invitation</option>  
+    </select>  
+
+    <p id="description-specialite"></p>  
+
     <p>Tél: <a href="https://wa.me/221771202606">+221 771202606</a></p>  
     <p>Email: <a href="mailto:sallballa436@gmail.com">sallballa436@gmail.com</a></p>  
     <p>Adresse: Medina Mbaba En face station SDPP keur Cheikhou Ndiaye, Kaolack</p>  
-  
+
     <div class="social-links">  
       <a href="https://www.facebook.com/maballa.sall?mibextid=rS40aB7S9Ucbxw6v" target="_blank">  
         <img src="images/facebook_image.jpg" alt="Facebook">  
@@ -92,11 +170,64 @@
         <img src="images/whatsapp_image.png" alt="WhatsApp">  
       </a>  
     </div>  
-  
+
     <p>  
       <a href="https://chniang.github.io/CARTE_DE_VISITE_PRO/" class="btn secondary">Commander votre propre carte</a>  
     </p>  
   </div>  
 
+  <!-- Modale pour l'aperçu de l'image -->  
+  <div id="imageModal" class="modal" onclick="fermerImage()">  
+    <span class="close" onclick="fermerImage()">&times;</span>  
+    <img class="modal-content" id="modal-img">  
+  </div>  
+
+  <script>  
+    function afficherDescription() {  
+      const descriptions = {  
+        flocage: "Personnalisation de vêtements par impression textile.",  
+        logo: "Création de logos professionnels et uniques.",  
+        tableau: "Peintures et tableaux artistiques décoratifs.",  
+        affiche: "Affiches publicitaires pour événements et promotions.",  
+        brochure: "Brochures pour catalogues, menus ou présentations.",  
+        depliant: "Dépliants informatifs et commerciaux pliables.",  
+        carte_visite: "Cartes de visite professionnelles personnalisées.",  
+        carte_membre: "Cartes de membre pour vos clubs ou associations.",  
+        flyers: "Flyers pour promotions, événements ou campagnes.",  
+        invitation: "Cartes d'invitation pour vos événements spéciaux."  
+      };  
+
+      const images = {  
+        flocage: "images/flocage.jpg",  
+        logo: "images/logo.avif",  
+        tableau: "images/tableau.jpg",  
+        affiche: "images/affiche.avif",  
+        brochure: "images/brochure.webp",  
+        depliant: "images/depliant.jpg",  
+        carte_visite: "images/carte_visite.jpg",  
+        carte_membre: "images/carte_membre.avif",  
+        flyers: "images/flyers.png",  
+        invitation: "images/invitation.jpg"  
+      };  
+
+      const choix = document.getElementById("specialite").value;  
+      const descElement = document.getElementById("description-specialite");  
+      const imageElement = document.getElementById("photo-profil");  
+
+      descElement.textContent = descriptions[choix] || "";  
+      imageElement.src = images[choix] || "images/image_balla.jpg";  
+    }  
+
+    function ouvrirImage(src) {  
+      const modal = document.getElementById("imageModal");  
+      const modalImg = document.getElementById("modal-img");  
+      modal.style.display = "block";  
+      modalImg.src = src;  
+    }  
+
+    function fermerImage() {  
+      document.getElementById("imageModal").style.display = "none";  
+    }  
+  </script>  
 </body>  
 </html>
